@@ -1,0 +1,15 @@
+
+services:
+  backend:
+    build:
+      context: ./  # Use the current directory (.)
+      dockerfile: Dockerfile  # Use the Dockerfile in the current directory
+    ports:
+      - "5000:5000"  # Expose port 8000
+    volumes:
+      - .:/app  # Mount the local directory to /app in the container
+    environment:
+      - DB_ENGINE=django.db.backends.sqlite3  # Use SQLite engine
+      - DB_NAME=/app/db.sqlite3  # Path to SQLite database inside the container
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:5000"
